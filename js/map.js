@@ -1,6 +1,6 @@
 'use strict';
 
-/*Прописываем переменные для работы с функциями и циклами*/
+/* Прописываем переменные для работы с функциями и циклами */
 
 var PLACE_TYPE = ['flat', 'house', 'bungalo'];
 var TIMES = ['12:00', '13:00', '14:00'];
@@ -47,9 +47,7 @@ var translatePlaceType = function (valueName) {
   if (valueName === 'house') {
     return 'Дом';
   }
-  if (valueName === 'bungalo') {
-    return 'Бунгало';
-  }
+  return 'Бунгало';
 };
 
 /* Создаем массив случайной длины с рандомным порядком */
@@ -62,7 +60,7 @@ var generateFeatures = function (list) {
   var сopyList = list.slice().sort(compareRandom);
   var listLength = сopyList.length - 1;
   var account = generateRandomNumber(1, listLength);
-  сopyList.splice(account, listLength-account);
+  сopyList.splice(account, listLength - account);
   return сopyList;
 };
 
@@ -81,7 +79,7 @@ var Location = function () {
   this.y = generateRandomNumber(100, 500);
 };
 
-var Offer = function(location) {
+var Offer = function (location) {
   this.title = generateRandomUnique(PLACE_TITLE);
   this.address = location.x + ',' + location.y;
   this.price = generateRandomNumber(1000, 1000000);
@@ -103,7 +101,7 @@ var Advert = function () {
 
 /* Создаем массив с объектами*/
 
-for (var i = 0; i < 8; i++) {
+for (i = 0; i < 8; i++) {
   var advert = new Advert();
   advertList.push(advert);
 }
@@ -152,5 +150,5 @@ lodgeFeatures.appendChild(fragment);
 element.querySelector('.lodge__description').insertAdjacentHTML('afterbegin', '' + firstAdvert.offer.description + '');
 document.querySelector('.dialog__title img:first-child').src = '' + firstAdvert.author.avatar + '';
 
-dialogPanel = dialogPanelContainer.replaceChild(element, dialogPanel);
+dialogPanelContainer.replaceChild(element, dialogPanel);
 
