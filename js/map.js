@@ -179,13 +179,12 @@ var onPopupEscPress = function (event) {
 var findActiveAdvert = function (currentPin) {
   var pinSrc = currentPin.querySelector('img').getAttribute('src');
   for (i = 0; i < advertList.length; i++) {
-    var advert = advertList[i];
-    var advertImg = advert.author.avatar;
+    var advertImg = advertList[i].author.avatar;
     if (pinSrc === advertImg) {
-      return advert;
+      return advertList[i];
     }
   }
-  return;
+  return false;
 };
 
 var openDialog = function (currentPin) {
@@ -193,8 +192,8 @@ var openDialog = function (currentPin) {
     pin[i].classList.remove('pin--active');
   }
   currentPin.classList.add('pin--active');
-  var advert = findActiveAdvert(currentPin);
-  var node = fillDialog(advert);
+  var foundedAdvert = findActiveAdvert(currentPin);
+  var node = fillDialog(foundedAdvert);
   var currentDialogPanel = document.querySelector('.dialog__panel');
   dialogPanelContainer.replaceChild(node, currentDialogPanel);
   dialog.classList.remove('hidden');
@@ -202,8 +201,9 @@ var openDialog = function (currentPin) {
 };
 
 var closeDialog = function (event) {
-  if (event)
+  if (event){
     event.preventDefault();
+  }
   for (i = 0; i < pin.length; i++) {
     pin[i].classList.remove('pin--active');
   }
@@ -221,7 +221,7 @@ dialogClose.addEventListener('keydown', function (event) {
 });
 
 for (i = 0; i < pin.length; i++) {
-  pin[i].addEventListener('click', function (event) {
+  pin[i].addEventListener('click', function () {
     openDialog(this);
   });
   pin[i].addEventListener('keydown', function (event) {
