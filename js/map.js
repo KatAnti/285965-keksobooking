@@ -135,16 +135,16 @@ for (i = 0; i < advertList.length; i++) {
 
 tokyoPin.appendChild(fragment);
 
-var fillDialog = function (advert) {
+var fillDialog = function (currentAdvert) {
   var element = template.cloneNode(true);
   var lodgeFeatures = element.querySelector('.lodge__features');
-  var randomArrayFeatures = advert.offer.features;
-  element.querySelector('.lodge__title').insertAdjacentHTML('afterbegin', '' + advert.offer.title + '');
-  element.querySelector('.lodge__address').insertAdjacentHTML('afterbegin', '' + advert.offer.address + '');
-  element.querySelector('.lodge__price ').insertAdjacentHTML('afterbegin', '' + advert.offer.price + '&#x20bd;/ночь');
-  element.querySelector('.lodge__type').insertAdjacentHTML('afterbegin', '' + translatePlaceType(advert.offer.type) + '');
-  element.querySelector('.lodge__rooms-and-guests').insertAdjacentHTML('afterbegin', '' + advert.offer.guests + ' гостей в ' + advert.offer.rooms + ' комнатах');
-  element.querySelector('.lodge__checkin-time').insertAdjacentHTML('afterbegin', 'Заезд после ' + advert.offer.checkin + ', выезд до ' + advert.offer.checkout + '');
+  var randomArrayFeatures = currentAdvert.offer.features;
+  element.querySelector('.lodge__title').insertAdjacentHTML('afterbegin', '' + currentAdvert.offer.title + '');
+  element.querySelector('.lodge__address').insertAdjacentHTML('afterbegin', '' + currentAdvert.offer.address + '');
+  element.querySelector('.lodge__price ').insertAdjacentHTML('afterbegin', '' + currentAdvert.offer.price + '&#x20bd;/ночь');
+  element.querySelector('.lodge__type').insertAdjacentHTML('afterbegin', '' + translatePlaceType(currentAdvert.offer.type) + '');
+  element.querySelector('.lodge__rooms-and-guests').insertAdjacentHTML('afterbegin', '' + currentAdvert.offer.guests + ' гостей в ' + currentAdvert.offer.rooms + ' комнатах');
+  element.querySelector('.lodge__checkin-time').insertAdjacentHTML('afterbegin', 'Заезд после ' + currentAdvert.offer.checkin + ', выезд до ' + currentAdvert.offer.checkout + '');
 
   for (i = 0; i < randomArrayFeatures.length; i++) {
     var newElement = document.createElement('span');
@@ -155,8 +155,8 @@ var fillDialog = function (advert) {
 
   lodgeFeatures.appendChild(fragment);
 
-  element.querySelector('.lodge__description').insertAdjacentHTML('afterbegin', '' + advert.offer.description + '');
-  document.querySelector('.dialog__title img:first-child').src = '' + advert.author.avatar + '';
+  element.querySelector('.lodge__description').insertAdjacentHTML('afterbegin', '' + currentAdvert.offer.description + '');
+  document.querySelector('.dialog__title img:first-child').src = '' + currentAdvert.author.avatar + '';
   return element;
 };
 
@@ -170,17 +170,14 @@ var dialogClose = dialog.querySelector('.dialog__close');
 var ESC_KEYCODE = 27;
 var ENTER_KEYCODE = 13;
 
-dialog.classList.add('hidden');
-
-
-var onPopupEscPress = function(evt) {
-  if (evt.keyCode === ESC_KEYCODE) {
+var onPopupEscPress = function (event) {
+  if (event.keyCode === ESC_KEYCODE) {
     closeDialog();
   }
 };
 
-var findActiveAdvert = function (pin) {
-  var pinSrc= pin.querySelector('img').getAttribute('src');
+var findActiveAdvert = function (currentPin) {
+  var pinSrc = currentPin.querySelector('img').getAttribute('src');
   for (i = 0; i < advertList.length; i++) {
     var advert = advertList[i];
     var advertImg = advert.author.avatar;
@@ -188,25 +185,25 @@ var findActiveAdvert = function (pin) {
       return advert;
     }
   }
-  return advert;
+  return;
 };
 
 var openDialog = function (currentPin) {
-  currentPin.classList.add('pin--active');
   for (i = 0; i < pin.length; i++) {
     pin[i].classList.remove('pin--active');
   }
+  currentPin.classList.add('pin--active');
   var advert = findActiveAdvert(currentPin);
   var node = fillDialog(advert);
-  var dialogPanel = document.querySelector('.dialog__panel');
-  dialogPanelContainer.replaceChild(node, dialogPanel);
+  var currentDialogPanel = document.querySelector('.dialog__panel');
+  dialogPanelContainer.replaceChild(node, currentDialogPanel);
   dialog.classList.remove('hidden');
   document.addEventListener('keydown', onPopupEscPress);
 };
 
-
-var closeDialog = function () {
-  event.preventDefault();
+var closeDialog = function (event) {
+  if (event)
+    event.preventDefault();
   for (i = 0; i < pin.length; i++) {
     pin[i].classList.remove('pin--active');
   }
@@ -215,19 +212,20 @@ var closeDialog = function () {
 };
 
 dialogClose.addEventListener('click', closeDialog);
+closeDialog();
 
-dialogClose.addEventListener('keydown', function(evt) {
-  if (evt.keyCode === ENTER_KEYCODE) {
+dialogClose.addEventListener('keydown', function (event) {
+  if (event.keyCode === ENTER_KEYCODE) {
     closeDialog();
   }
 });
 
 for (i = 0; i < pin.length; i++) {
-  pin[i].addEventListener('click', function () {
+  pin[i].addEventListener('click', function (event) {
     openDialog(this);
   });
-  pin[i].addEventListener('keydown', function(evt) {
-    if (evt.keyCode === ENTER_KEYCODE) {
+  pin[i].addEventListener('keydown', function (event) {
+    if (event.keyCode === ENTER_KEYCODE) {
       openDialog(this);
     }
   });
