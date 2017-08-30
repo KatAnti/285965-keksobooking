@@ -201,7 +201,7 @@ var openDialog = function (currentPin) {
 };
 
 var closeDialog = function (event) {
-  if (event){
+  if (event) {
     event.preventDefault();
   }
   for (i = 0; i < pin.length; i++) {
@@ -221,12 +221,12 @@ dialogClose.addEventListener('keydown', function (event) {
 });
 
 for (i = 0; i < pin.length; i++) {
-  pin[i].addEventListener('click', function () {
-    openDialog(this);
+  pin[i].addEventListener('click', function (event) {
+    openDialog(event.currentTarget);
   });
   pin[i].addEventListener('keydown', function (event) {
     if (event.keyCode === ENTER_KEYCODE) {
-      openDialog(this);
+      openDialog(event.currentTarget);
     }
   });
 }
