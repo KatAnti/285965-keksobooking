@@ -122,8 +122,9 @@ var fragment = document.createDocumentFragment();
 
 var createPin = function (pin) {
   var newElement = document.createElement('div');
+  newElement.setAttribute('tabindex', '0');
   newElement.className = 'pin';
-  newElement.innerHTML = '<img src="' + pin.author.avatar + '" alt="Pin" tabindex="0" class="rounded" width="40" height="44">';
+  newElement.innerHTML = '<img src="' + pin.author.avatar + '" alt="Pin" class="rounded" width="40" height="40">';
   newElement.style.left = '' + (pin.location.x + PIN_LEFT) + 'px';
   newElement.style.top = '' + (pin.location.y + PIN_TOP) + 'px';
   return newElement;
