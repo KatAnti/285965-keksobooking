@@ -232,3 +232,66 @@ for (i = 0; i < pin.length; i++) {
   });
 }
 
+/* Валидация формы */
+
+var timeInForm = document.querySelector('#timein');
+var timeOutForm = document.querySelector('#timeout');
+var typeOfPlaceForm = document.querySelector('#type');
+
+var changeTime = function (time, replacedTime) {
+  replacedTime.value = time.value;
+};
+
+timeInForm.addEventListener('change', function () {
+  changeTime(timeInForm, timeOutForm);
+});
+
+timeOutForm.addEventListener('change', function () {
+  changeTime(timeOutForm, timeInForm);
+});
+
+var setMinPrice = function () {
+  var price = document.querySelector('#price');
+  var currentType = typeOfPlaceForm.value;
+  if (currentType === 'bungalo') {
+    price.setAttribute('min', '0')
+  }
+  if (currentType === 'flat') {
+    price.setAttribute('min', '1000')
+  }
+  if (currentType === 'house') {
+    price.setAttribute('min', '5000')
+  }
+  if (currentType === 'palace') {
+    price.setAttribute('min', '10000')
+  }
+  return false;
+};
+
+typeOfPlaceForm.addEventListener('change', setMinPrice);
+
+var capacityForm = document.querySelector('#capacity');
+var roomNumberForm = document.querySelector('#room_number');
+
+var setVisitorsNumber = function () {
+  var roomNumberFormValue = + document.querySelector('#room_number').value;
+  var lastNotDisabled;
+  for (i = 0; i < capacityForm.length; i++) {
+    var capacityFormValue = + capacityForm[i].value;
+    capacityForm[i].disabled = false;
+    if (
+      capacityFormValue > roomNumberFormValue
+      || (roomNumberFormValue == 100 && capacityFormValue != 0)
+      || (roomNumberFormValue != 100 && capacityFormValue == 0)
+    ) {
+      capacityForm[i].disabled = true;
+    } else {
+      capacityForm[i].setAttribute('selected', true);
+    }
+  }
+  return false;
+};
+
+setVisitorsNumber();
+roomNumberForm.addEventListener('change', setVisitorsNumber);
+
