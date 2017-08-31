@@ -275,7 +275,6 @@ var roomNumberForm = document.querySelector('#room_number');
 
 var setVisitorsNumber = function () {
   var roomNumberFormValue = +document.querySelector('#room_number').value;
-  var lastNotDisabled;
   for (i = 0; i < capacityForm.length; i++) {
     var capacityFormValue = +capacityForm[i].value;
     capacityForm[i].disabled = false;
@@ -284,10 +283,10 @@ var setVisitorsNumber = function () {
       || (roomNumberFormValue === 100 && capacityFormValue !== 0)
       || (roomNumberFormValue !== 100 && capacityFormValue === 0)
     ) {
-      capacityForm[i].disabled = "true";
+      capacityForm[i].disabled = 'true';
       capacityForm[i].removeAttribute('selected');
     } else {
-      capacityForm[i].selected = "true";
+      capacityForm[i].selected = 'true';
     }
   }
   return false;
