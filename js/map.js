@@ -254,16 +254,16 @@ var setMinPrice = function () {
   var price = document.querySelector('#price');
   var currentType = typeOfPlaceForm.value;
   if (currentType === 'bungalo') {
-    price.setAttribute('min', '0')
+    price.setAttribute('min', '0');
   }
   if (currentType === 'flat') {
-    price.setAttribute('min', '1000')
+    price.setAttribute('min', '1000');
   }
   if (currentType === 'house') {
-    price.setAttribute('min', '5000')
+    price.setAttribute('min', '5000');
   }
   if (currentType === 'palace') {
-    price.setAttribute('min', '10000')
+    price.setAttribute('min', '10000');
   }
   return false;
 };
@@ -274,19 +274,20 @@ var capacityForm = document.querySelector('#capacity');
 var roomNumberForm = document.querySelector('#room_number');
 
 var setVisitorsNumber = function () {
-  var roomNumberFormValue = + document.querySelector('#room_number').value;
+  var roomNumberFormValue = +document.querySelector('#room_number').value;
   var lastNotDisabled;
   for (i = 0; i < capacityForm.length; i++) {
-    var capacityFormValue = + capacityForm[i].value;
+    var capacityFormValue = +capacityForm[i].value;
     capacityForm[i].disabled = false;
     if (
       capacityFormValue > roomNumberFormValue
-      || (roomNumberFormValue == 100 && capacityFormValue != 0)
-      || (roomNumberFormValue != 100 && capacityFormValue == 0)
+      || (roomNumberFormValue === 100 && capacityFormValue !== 0)
+      || (roomNumberFormValue !== 100 && capacityFormValue === 0)
     ) {
-      capacityForm[i].disabled = true;
+      capacityForm[i].disabled = "true";
+      capacityForm[i].removeAttribute('selected');
     } else {
-      capacityForm[i].setAttribute('selected', true);
+      capacityForm[i].selected = "true";
     }
   }
   return false;
