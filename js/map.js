@@ -185,7 +185,6 @@ var findActiveAdvert = function (currentPin) {
       return advertList[i];
     }
   }
-  return;
 };
 
 var openDialog = function (currentPin) {
@@ -302,14 +301,14 @@ var priceInput = document.querySelector('#price');
 var addressInput = document.querySelector('#address');
 
 var validateField = function (field) {
-  field.addEventListener('invalid', function (evt) {
-    field.style.border = "2px solid red";
+  field.addEventListener('invalid', function () {
+    field.style.border = '2px solid red';
   });
-  field.addEventListener('change', function (evt) {
+  field.addEventListener('change', function () {
     if (field.validity.valid) {
-      field.style.border = "none";
+      field.style.border = 'none';
     } else {
-      field.style.border = "2px solid red";
+      field.style.border = '2px solid red';
     }
   });
   return;
