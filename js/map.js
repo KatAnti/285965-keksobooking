@@ -234,64 +234,87 @@ for (i = 0; i < pin.length; i++) {
 
 /* Валидация формы */
 
-var timeInForm = document.querySelector('#timein');
-var timeOutForm = document.querySelector('#timeout');
-var typeOfPlaceForm = document.querySelector('#type');
+var timeInField = document.querySelector('#timein');
+var timeOutField = document.querySelector('#timeout');
+var typeOfPlaceField = document.querySelector('#type');
 
 var changeTime = function (time, replacedTime) {
   replacedTime.value = time.value;
 };
 
-timeInForm.addEventListener('change', function () {
-  changeTime(timeInForm, timeOutForm);
+timeInField.addEventListener('change', function () {
+  changeTime(timeInField, timeOutField);
 });
 
-timeOutForm.addEventListener('change', function () {
-  changeTime(timeOutForm, timeInForm);
+timeOutField.addEventListener('change', function () {
+  changeTime(timeOutField, timeInField);
 });
 
 var setMinPrice = function () {
   var price = document.querySelector('#price');
-  var currentType = typeOfPlaceForm.value;
-  if (currentType === 'bungalo') {
-    price.setAttribute('min', '0');
+  var currentType = typeOfPlaceField.value;
+  switch (currentType) {
+    case 'flat':
+      price.setAttribute('min', '1000');
+      break;
+    case 'house':
+      price.setAttribute('min', '5000');
+      break;
+    case 'palace':
+      price.setAttribute('min', '10000');
+      break;
+    default:
+      price.setAttribute('min', '0');
+      break;
   }
-  if (currentType === 'flat') {
-    price.setAttribute('min', '1000');
-  }
-  if (currentType === 'house') {
-    price.setAttribute('min', '5000');
-  }
-  if (currentType === 'palace') {
-    price.setAttribute('min', '10000');
-  }
-  return false;
+  return;
 };
 
-typeOfPlaceForm.addEventListener('change', setMinPrice);
+typeOfPlaceField.addEventListener('change', setMinPrice);
 
-var capacityForm = document.querySelector('#capacity');
-var roomNumberForm = document.querySelector('#room_number');
+var capacityField = document.querySelector('#capacity');
+var roomNumberField = document.querySelector('#room_number');
 
 var setVisitorsNumber = function () {
-  var roomNumberFormValue = +document.querySelector('#room_number').value;
-  for (i = 0; i < capacityForm.length; i++) {
-    var capacityFormValue = +capacityForm[i].value;
-    capacityForm[i].disabled = false;
+  var roomNumberFieldValue = +roomNumberField.value;
+  for (i = 0; i < capacityField.length; i++) {
+    var capacityFieldValue = +capacityField[i].value;
+    capacityField[i].disabled = false;
     if (
-      capacityFormValue > roomNumberFormValue
-      || (roomNumberFormValue === 100 && capacityFormValue !== 0)
-      || (roomNumberFormValue !== 100 && capacityFormValue === 0)
+      capacityFieldValue > roomNumberFieldValue
+      || (roomNumberFieldValue === 100 && capacityFieldValue !== 0)
+      || (roomNumberFieldValue !== 100 && capacityFieldValue === 0)
     ) {
-      capacityForm[i].disabled = 'true';
-      capacityForm[i].removeAttribute('selected');
+      capacityField[i].disabled = 'true';
+      capacityField[i].removeAttribute('selected');
     } else {
-      capacityForm[i].selected = 'true';
+      capacityField[i].selected = 'true';
     }
   }
   return false;
 };
 
 setVisitorsNumber();
-roomNumberForm.addEventListener('change', setVisitorsNumber);
+roomNumberField.addEventListener('change', setVisitorsNumber);
 
+var titleInput = document.querySelector('#title');
+var priceInput = document.querySelector('#price');
+var addressInput = document.querySelector('#address');
+
+var validateField = function (field) {
+  field.addEventListener('invalid', function (evt) {
+    field.style.border = "2px solid red";
+  });
+  field.addEventListener('change', function (evt) {
+    if (field.validity.valid) {
+      field.style.border = "none";
+    } else {
+      field.style.border = "2px solid red";
+    }
+  });
+  return;
+};
+
+validateField(titleInput);
+validateField(priceInput);
+validateField(addressInput);
