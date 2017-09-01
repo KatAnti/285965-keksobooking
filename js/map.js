@@ -185,7 +185,7 @@ var findActiveAdvert = function (currentPin) {
       return advertList[i];
     }
   }
-  return false;
+  return;
 };
 
 var openDialog = function (currentPin) {
@@ -291,7 +291,7 @@ var setVisitorsNumber = function () {
       capacityField[i].selected = 'true';
     }
   }
-  return false;
+  return;
 };
 
 setVisitorsNumber();
