@@ -185,6 +185,7 @@ var findActiveAdvert = function (currentPin) {
       return advertList[i];
     }
   }
+  return false;
 };
 
 var openDialog = function (currentPin) {
