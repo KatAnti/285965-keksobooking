@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var firstAdvert = advertList[0];
+  var firstAdvert = window.data.advertList[0];
   var template = document.querySelector('#lodge-template').content.querySelector('.dialog__panel');
   var dialogPanel = document.querySelector('.dialog__panel');
   var fragment = document.createDocumentFragment();
@@ -9,10 +9,10 @@
   window.card = {
     findActiveAdvert: function (currentPin) {
       var pinSrc = currentPin.querySelector('img').getAttribute('src');
-      for (var i = 0; i < advertList.length; i++) {
-        var advertImg = advertList[i].author.avatar;
+      for (var i = 0; i < window.data.advertList.length; i++) {
+        var advertImg = window.data.advertList[i].author.avatar;
         if (pinSrc === advertImg) {
-          return advertList[i];
+          return window.data.advertList[i];
         }
       }
       return false;
@@ -51,7 +51,7 @@
   window.map.closeDialog();
 
   dialogClose.addEventListener('keydown', function (event) {
-    if (event.keyCode === ENTER_KEYCODE) {
+    if (event.keyCode === window.map.ENTER_KEYCODE) {
       window.map.closeDialog();
     }
   });

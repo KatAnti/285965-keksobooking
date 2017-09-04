@@ -16,8 +16,8 @@
     return newElement;
   };
 
-  for (var i = 0; i < advertList.length; i++) {
-    fragment.appendChild(createPin(advertList[i]));
+  for (var i = 0; i < window.data.advertList.length; i++) {
+    fragment.appendChild(createPin(window.data.advertList[i]));
   }
 
   tokyoPin.appendChild(fragment);

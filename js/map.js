@@ -34,5 +34,5 @@
     dialogPanelContainer: document.querySelector('#offer-dialog'),
     ESC_KEYCODE: 27,
     ENTER_KEYCODE: 13,
-  }
+  };
 })();

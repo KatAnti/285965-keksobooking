@@ -13,11 +13,6 @@
       random = Math.round(random);
       return random;
     },
-    generateRandomNumber: function (min, max) {
-      var random = min - 0.5 + Math.random() * (max - min + 1);
-      random = Math.round(random);
-      return random;
-    },
     generateRandomUnique: function (list) {
       var listLength = list.length - 1;
       var result = this.generateRandomNumber(0, listLength);
@@ -52,7 +47,8 @@
       var account = this.generateRandomNumber(1, listLength);
       сopyList.splice(account, listLength - account);
       return сopyList;
-    }
+    },
+    advertList: [],
   };
 
   for (var i = 1; i < 9; i++) {
@@ -88,9 +84,8 @@
     this.offer = new Offer(this.location);
   };
 
-  window.advertList = [];
   for (i = 0; i < 8; i++) {
     var advert = new Advert();
-    advertList.push(advert);
+    window.data.advertList.push(advert);
   }
 })();
