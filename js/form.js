@@ -68,21 +68,21 @@
   var priceInput = document.querySelector('#price');
   var addressInput = document.querySelector('#address');
 
-  var validateField = function (field) {
+  var addValidateHandlers = function (field) {
     field.addEventListener('invalid', function () {
-      field.style.border = '2px solid red';
+      this.style.border = '2px solid red';
     });
     field.addEventListener('change', function () {
-      if (field.validity.valid) {
-        field.style.border = 'none';
+      if (this.validity.valid) {
+        this.style.border = 'none';
       } else {
-        field.style.border = '2px solid red';
+        this.style.border = '2px solid red';
       }
     });
     return;
   };
 
-  validateField(titleInput);
-  validateField(priceInput);
-  validateField(addressInput);
+  addValidateHandlers(titleInput);
+  addValidateHandlers(priceInput);
+  addValidateHandlers(addressInput);
 })();

@@ -1,13 +1,10 @@
 'use strict';
 
 (function () {
-  var PLACE_TYPE = ['flat', 'house', 'bungalo'];
-  var TIMES = ['12:00', '13:00', '14:00'];
-  var PLACE_TITLE = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
-  var placeFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-  var numberOfUser = [];
-
   window.data = {
+    ESC_KEYCODE: 27,
+    ENTER_KEYCODE: 13,
+    advertList: [],
     generateRandomNumber: function (min, max) {
       var random = min - 0.5 + Math.random() * (max - min + 1);
       random = Math.round(random);
@@ -48,44 +45,38 @@
       сopyList.splice(account, listLength - account);
       return сopyList;
     },
-    advertList: [],
+    setAdverts: function (advertList) {
+      this.advertList = advertList;
+    },
+    openDialog: function (currentPin) {
+      var pin = document.querySelectorAll('.pin');
+      for (var i = 0; i < pin.length; i++) {
+        pin[i].classList.remove('pin--active');
+      }
+      currentPin.classList.add('pin--active');
+      var foundedAdvert = window.card.findActiveAdvert(currentPin);
+      var node = window.card.fillDialog(foundedAdvert);
+      var currentDialogPanel = document.querySelector('.dialog__panel');
+      var dialogPanelContainer = document.querySelector('#offer-dialog');
+      dialogPanelContainer.replaceChild(node, currentDialogPanel);
+      document.querySelector('.dialog').classList.remove('hidden');
+      document.addEventListener('keydown', this.onPopupEscPress);
+    },
+    closeDialog: function (event) {
+      if (event) {
+        event.preventDefault();
+      }
+      var pin = document.querySelectorAll('.pin');
+      for (var i = 0; i < pin.length; i++) {
+        pin[i].classList.remove('pin--active');
+      }
+      document.querySelector('.dialog').classList.add('hidden');
+      document.removeEventListener('keydown', this.onPopupEscPress);
+    },
+    onPopupEscPress: function (event) {
+      if (event.keyCode === window.data.ESC_KEYCODE) {
+        window.data.closeDialog();
+      }
+    },
   };
-
-  for (var i = 1; i < 9; i++) {
-    numberOfUser.push(i);
-  }
-
-  var Author = function () {
-    this.avatar = 'img/avatars/user0' + window.data.generateRandomUnique(numberOfUser) + '.png';
-  };
-
-  var Location = function () {
-    this.x = window.data.generateRandomNumber(300, 900);
-    this.y = window.data.generateRandomNumber(100, 500);
-  };
-
-  var Offer = function (location) {
-    this.title = window.data.generateRandomUnique(PLACE_TITLE);
-    this.address = location.x + ',' + location.y;
-    this.price = window.data.generateRandomNumber(1000, 1000000);
-    this.type = window.data.getRandomArrayValue(PLACE_TYPE);
-    this.rooms = window.data.generateRandomNumber(1, 5);
-    this.guests = window.data.generateRandomNumber(1, 5);
-    this.checkin = window.data.getRandomArrayValue(TIMES);
-    this.checkout = window.data.getRandomArrayValue(TIMES);
-    this.features = window.data.generateFeatures(placeFeatures);
-    this.description = '';
-    this.photos = [];
-  };
-
-  var Advert = function () {
-    this.author = new Author();
-    this.location = new Location();
-    this.offer = new Offer(this.location);
-  };
-
-  for (i = 0; i < 8; i++) {
-    var advert = new Advert();
-    window.data.advertList.push(advert);
-  }
 })();

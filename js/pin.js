@@ -16,21 +16,25 @@
     return newElement;
   };
 
-  for (var i = 0; i < window.data.advertList.length; i++) {
-    fragment.appendChild(createPin(window.data.advertList[i]));
-  }
-
-  tokyoPin.appendChild(fragment);
-  window.map.pin = document.querySelectorAll('.pin');
-
-  for (i = 0; i < window.map.pin.length; i++) {
-    window.map.pin[i].addEventListener('click', function (event) {
-      window.map.openDialog(event.currentTarget);
-    });
-    window.map.pin[i].addEventListener('keydown', function (event) {
-      if (event.keyCode === window.map.ENTER_KEYCODE) {
-        window.map.openDialog(event.currentTarget);
+  window.pin = {
+    renderPin: function (advertListArray) {
+      for (var i = 0; i < advertListArray.length; i++) {
+        fragment.appendChild(createPin(advertListArray[i]));
       }
-    });
+      tokyoPin.appendChild(fragment);
+      return fragment;
+    },
+    addHandlers: function (pin) {
+      for (var i = 0; i < pin.length; i++) {
+        pin[i].addEventListener('click', function (event) {
+          window.data.openDialog(event.currentTarget);
+        });
+        pin[i].addEventListener('keydown', function (event) {
+          if (event.keyCode === window.data.ENTER_KEYCODE) {
+            window.data.openDialog(event.currentTarget);
+          }
+        });
+      }
+    }
   }
 })();

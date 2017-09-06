@@ -1,10 +1,11 @@
 'use strict';
 
 (function () {
-  var firstAdvert = window.data.advertList[0];
   var template = document.querySelector('#lodge-template').content.querySelector('.dialog__panel');
   var dialogPanel = document.querySelector('.dialog__panel');
   var fragment = document.createDocumentFragment();
+  var dialogPanelContainer = document.querySelector('#offer-dialog');
+  var dialog = document.querySelector('.dialog');
 
   window.card = {
     findActiveAdvert: function (currentPin) {
@@ -40,19 +41,24 @@
       element.querySelector('.lodge__description').insertAdjacentHTML('afterbegin', '' + currentAdvert.offer.description + '');
       document.querySelector('.dialog__title img:first-child').src = '' + currentAdvert.author.avatar + '';
       return element;
+    },
+    fillCardByFirstAdvert: function (firstAdvert) {
+      dialogPanelContainer.replaceChild(this.fillDialog(firstAdvert), dialogPanel);
+    },
+    addHandlers: function () {
+      var dialogClose = dialog.querySelector('.dialog__close');
+      dialogClose.addEventListener('click', window.data.closeDialog);
+      window.data.closeDialog();
+
+      dialogClose.addEventListener('keydown', function (event) {
+        if (event.keyCode === window.data.ENTER_KEYCODE) {
+          window.data.closeDialog();
+        }
+      });
     }
   };
 
-  window.map.dialogPanelContainer.replaceChild(window.card.fillDialog(firstAdvert), dialogPanel);
 
-  var dialogClose = window.map.dialog.querySelector('.dialog__close');
 
-  dialogClose.addEventListener('click', window.map.closeDialog);
-  window.map.closeDialog();
 
-  dialogClose.addEventListener('keydown', function (event) {
-    if (event.keyCode === window.map.ENTER_KEYCODE) {
-      window.map.closeDialog();
-    }
-  });
 })();
