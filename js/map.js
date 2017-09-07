@@ -66,13 +66,5 @@
   window.pin.addHandlers(pin);
   window.card.fillCardByFirstAdvert(advertListArray[0]);
   window.card.addHandlers();
-
-
-  /* window.map = {
-    advertListArray: generateAdvertListArray(),
-    pin: document.querySelectorAll('.pin'),
-    dialog: document.querySelector('.dialog'),
-
-  }; */
 })();
 

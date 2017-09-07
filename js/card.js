@@ -6,6 +6,7 @@
   var fragment = document.createDocumentFragment();
   var dialogPanelContainer = document.querySelector('#offer-dialog');
   var dialog = document.querySelector('.dialog');
+  var ENTER_KEYCODE = 13;
 
   window.card = {
     findActiveAdvert: function (currentPin) {
@@ -49,16 +50,11 @@
       var dialogClose = dialog.querySelector('.dialog__close');
       dialogClose.addEventListener('click', window.data.closeDialog);
       window.data.closeDialog();
-
       dialogClose.addEventListener('keydown', function (event) {
-        if (event.keyCode === window.data.ENTER_KEYCODE) {
+        if (event.keyCode === ENTER_KEYCODE) {
           window.data.closeDialog();
         }
       });
     }
   };
-
-
-
-
 })();

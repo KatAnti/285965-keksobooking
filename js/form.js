@@ -4,18 +4,15 @@
   var timeInField = document.querySelector('#timein');
   var timeOutField = document.querySelector('#timeout');
   var typeOfPlaceField = document.querySelector('#type');
+  var titleInput = document.querySelector('#title');
+  var priceInput = document.querySelector('#price');
+  var addressInput = document.querySelector('#address');
+  var capacityField = document.querySelector('#capacity');
+  var roomNumberField = document.querySelector('#room_number');
 
   var changeTime = function (time, replacedTime) {
     replacedTime.value = time.value;
   };
-
-  timeInField.addEventListener('change', function () {
-    changeTime(timeInField, timeOutField);
-  });
-
-  timeOutField.addEventListener('change', function () {
-    changeTime(timeOutField, timeInField);
-  });
 
   var setMinPrice = function () {
     var price = document.querySelector('#price');
@@ -37,11 +34,6 @@
     return;
   };
 
-  typeOfPlaceField.addEventListener('change', setMinPrice);
-
-  var capacityField = document.querySelector('#capacity');
-  var roomNumberField = document.querySelector('#room_number');
-
   var setVisitorsNumber = function () {
     var roomNumberFieldValue = +roomNumberField.value;
     for (var i = 0; i < capacityField.length; i++) {
@@ -61,13 +53,6 @@
     return;
   };
 
-  setVisitorsNumber();
-  roomNumberField.addEventListener('change', setVisitorsNumber);
-
-  var titleInput = document.querySelector('#title');
-  var priceInput = document.querySelector('#price');
-  var addressInput = document.querySelector('#address');
-
   var addValidateHandlers = function (field) {
     field.addEventListener('invalid', function () {
       this.style.border = '2px solid red';
@@ -81,6 +66,19 @@
     });
     return;
   };
+
+  setVisitorsNumber();
+  roomNumberField.addEventListener('change', setVisitorsNumber);
+
+  typeOfPlaceField.addEventListener('change', setMinPrice);
+
+  timeInField.addEventListener('change', function () {
+    changeTime(timeInField, timeOutField);
+  });
+
+  timeOutField.addEventListener('change', function () {
+    changeTime(timeOutField, timeInField);
+  });
 
   addValidateHandlers(titleInput);
   addValidateHandlers(priceInput);

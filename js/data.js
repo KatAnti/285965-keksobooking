@@ -1,9 +1,8 @@
 'use strict';
 
 (function () {
+  var ESC_KEYCODE = 27;
   window.data = {
-    ESC_KEYCODE: 27,
-    ENTER_KEYCODE: 13,
     advertList: [],
     generateRandomNumber: function (min, max) {
       var random = min - 0.5 + Math.random() * (max - min + 1);
@@ -74,7 +73,7 @@
       document.removeEventListener('keydown', this.onPopupEscPress);
     },
     onPopupEscPress: function (event) {
-      if (event.keyCode === window.data.ESC_KEYCODE) {
+      if (event.keyCode === ESC_KEYCODE) {
         window.data.closeDialog();
       }
     },

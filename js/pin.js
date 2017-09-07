@@ -5,6 +5,7 @@
   var PIN_LEFT = 29;
   var tokyoPin = document.querySelector('.tokyo__pin-map');
   var fragment = document.createDocumentFragment();
+  var ENTER_KEYCODE = 13;
 
   var createPin = function (pin) {
     var newElement = document.createElement('div');
@@ -30,7 +31,7 @@
           window.data.openDialog(event.currentTarget);
         });
         pin[i].addEventListener('keydown', function (event) {
-          if (event.keyCode === window.data.ENTER_KEYCODE) {
+          if (event.keyCode === ENTER_KEYCODE) {
             window.data.openDialog(event.currentTarget);
           }
         });
