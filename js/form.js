@@ -55,13 +55,13 @@
 
   var addValidateHandlers = function (field) {
     field.addEventListener('invalid', function () {
-      this.style.border = '2px solid red';
+      field.style.border = '2px solid red';
     });
     field.addEventListener('change', function () {
-      if (this.validity.valid) {
-        this.style.border = 'none';
+      if (field.validity.valid) {
+        field.style.border = 'none';
       } else {
-        this.style.border = '2px solid red';
+        field.style.border = '2px solid red';
       }
     });
     return;
