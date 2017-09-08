@@ -68,7 +68,7 @@
 
   var pin = document.querySelectorAll('.pin');
 
-  for (var i = 0; i < pin.length; i++) {
+  for (i = 0; i < pin.length; i++) {
     window.pin.addHandlers(pin[i]);
   }
   window.card.fillCardByFirstAdvert(advertListArray[0]);

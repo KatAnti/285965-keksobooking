@@ -24,14 +24,14 @@
       return fragment;
     },
     addHandlers: function (pin) {
-        pin.addEventListener('click', function (event) {
+      pin.addEventListener('click', function (event) {
+        window.data.openDialog(event.currentTarget);
+      });
+      pin.addEventListener('keydown', function (event) {
+        if (event.keyCode === ENTER_KEYCODE) {
           window.data.openDialog(event.currentTarget);
-        });
-        pin.addEventListener('keydown', function (event) {
-          if (event.keyCode === ENTER_KEYCODE) {
-            window.data.openDialog(event.currentTarget);
-          }
-        });
+        }
+      });
     }
   };
 })();
