@@ -61,9 +61,16 @@
 
   var advertListArray = generateAdvertListArray();
   window.data.setAdverts(advertListArray);
-  window.pin.renderPin(advertListArray);
+
+  for (var i = 0; i < advertListArray.length; i++) {
+    window.pin.renderPin(advertListArray[i]);
+  }
+
   var pin = document.querySelectorAll('.pin');
-  window.pin.addHandlers(pin);
+
+  for (var i = 0; i < pin.length; i++) {
+    window.pin.addHandlers(pin[i]);
+  }
   window.card.fillCardByFirstAdvert(advertListArray[0]);
   window.card.addHandlers();
 })();

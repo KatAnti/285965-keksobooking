@@ -18,24 +18,20 @@
   };
 
   window.pin = {
-    renderPin: function (advertListArray) {
-      for (var i = 0; i < advertListArray.length; i++) {
-        fragment.appendChild(createPin(advertListArray[i]));
-      }
+    renderPin: function (advert) {
+      fragment.appendChild(createPin(advert));
       tokyoPin.appendChild(fragment);
       return fragment;
     },
     addHandlers: function (pin) {
-      for (var i = 0; i < pin.length; i++) {
-        pin[i].addEventListener('click', function (event) {
+        pin.addEventListener('click', function (event) {
           window.data.openDialog(event.currentTarget);
         });
-        pin[i].addEventListener('keydown', function (event) {
+        pin.addEventListener('keydown', function (event) {
           if (event.keyCode === ENTER_KEYCODE) {
             window.data.openDialog(event.currentTarget);
           }
         });
-      }
     }
   };
 })();
